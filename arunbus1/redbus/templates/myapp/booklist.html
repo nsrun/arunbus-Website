@@ -1,0 +1,133 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<head>
+    <style>
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background-color: #ff69b4; /* Hot Pink */
+        }
+
+        th, td {
+            border: 2px solid rgb(17, 0, 255);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            font-weight: bold;
+            color: #fff;
+        }
+
+        /* Styling for the form */
+        form {
+            margin: 40px auto;
+            max-width: 400px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h3 {
+            margin-bottom: 15px;
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #17a2b8; /* Bootstrap info color */
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<h3 style="text-align:center;">Booked Tickets</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>User Name</th>
+            <th>Bus Name</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>No of Seats</th>
+            <th>Price</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in book_list %}
+        <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.name }}</td>
+            <td>{{ row.bus_name }}</td>
+            <td>{{ row.source }}</td>
+            <td>{{ row.dest }}</td>
+            <td>{{ row.nos }}</td>
+            <td>{{ row.price }}</td>
+            <td>{{ row.date }}</td>
+            <td>{{ row.time }}</td>
+            <td>{{ row.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<form method="POST" action="{% url 'cancellings' %}">
+    {% csrf_token %}
+    <h3>Choose Bus to Cancel</h3>
+    <label for="bus_id">Book ID</label>
+    <input type="number" id="bus_id" name="bus_id" placeholder="Enter Booking ID" required>
+    <button type="submit">Cancel Bus</button>
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+</form>
+{% include 'myapp/footer.html' %}
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<head>
+    <style>
+        /* Basic reset for consistency */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Heading styles */
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* Form styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            color: #d9534f; /* Bootstrap red */
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="date"] {
+            padding: 12px 15px;
+            border: 2px solid #007bff; /* Bootstrap blue */
+            border-radius: 6px;
+            width: 100%;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus {
+            border-color: #0056b3;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        /* Button styles */
+        button {
+            margin-top: 30px;
+            padding: 14px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Error message styling */
+        .error {
+            margin-top: 15px;
+            color: red;
+            font-weight: 600;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <h2>Find Bus</h2>
+    <form action="{% url 'findbus' %}" method="POST">
+        {% csrf_token %}
+        <label for="source">Source</label>
+        <input type="text" id="source" name="source" placeholder="Enter source city" required>
+
+        <label for="destination">Destination</label>
+        <input type="text" id="destination" name="destination" placeholder="Enter destination city" required>
+
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <button type="submit">Find Bus</button>
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+    </form>
+</div>
+{% include 'myapp/footer.html' %}
+{% endblock %}

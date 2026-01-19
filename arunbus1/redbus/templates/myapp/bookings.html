@@ -1,0 +1,180 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<head>
+    <style>
+        /* Reset and base styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007bff;
+        }
+
+        /* Centered container for the content */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* Style for the confirmation messages */
+        .confirmation {
+            margin-bottom: 30px;
+        }
+
+        /* Button styles */
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal.show {
+            display: block;
+        }
+
+        .modal-dialog {
+            position: relative;
+            margin: 10% auto;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            padding: 20px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        /* List styles inside modal */
+        .list-group {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .list-group-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <h2>Booking Confirmation</h2>
+    <div class="confirmation">
+        <p>Your booking has been been confirmed.</p>
+        <p>Thank you! Have a safe journey.</p>
+    </div>
+
+    <button id="billBtn">Bill Details</button>
+
+    <!-- Modal Structure -->
+    <div id="billModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div class="modal-title">Billing Details</div>
+                <button class="close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item"><b>Bus Name:</b> {{ book.bus_name }}</li>
+                    <li class="list-group-item"><b>Source:</b> {{ book.source }}</li>
+                    <li class="list-group-item"><b>Destination:</b> {{ book.dest }}</li>
+                    <li class="list-group-item"><b>No of Seats:</b> {{ book.nos }}</li>
+                    <li class="list-group-item"><b>Price:</b> {{ book.price }}</li>
+                    <li class="list-group-item"><b>Cost:</b> {{ cost }}</li>
+                    <li class="list-group-item"><b>Date:</b> {{ book.date }}</li>
+                    <li class="list-group-item"><b>Time:</b> {{ book.time }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Get modal element and button
+    const modal = document.getElementById('billModal');
+    const btn = document.getElementById('billBtn');
+    const closeBtn = document.getElementById('closeModal');
+
+    // Show modal on button click
+    btn.onclick = function() {
+        modal.classList.add('show');
+    }
+
+    // Hide modal on close button click
+    closeBtn.onclick = function() {
+        modal.classList.remove('show');
+    }
+
+    // Hide modal when clicking outside the modal dialog
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.classList.remove('show');
+        }
+    }
+</script>
+
+{% endblock %}

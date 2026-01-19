@@ -1,0 +1,87 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+<html>
+<head>
+	<title>About Us | redBus</title>
+	<style>
+    body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+.header {
+	background-color: #007bff;
+	color: #fff;
+	margin:10px;
+	padding: 10px;
+	text-align: center;
+}
+
+.container {
+	width: 80%;
+	margin: 20px auto;
+}
+
+ .about-section {
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        .about-section h2 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        .about-section p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .about-section ul {
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .about-section li {
+            margin-bottom: 8px;
+        }
+
+
+</style>
+<body>
+	<div class="header">
+		<h1>About Us</h1>
+	</div>
+	<div class="container">
+		<div class="about-section">
+			<h2>Our Story</h2>
+			<p>redBus is India's largest online bus ticketing platform, revolutionizing the way people travel by bus. Founded in 2006, we've been making bus travel easy, convenient, and accessible to millions of Indians.</p>
+		</div>
+		<br><br>
+		<div class="about-section">
+			<h2>Our Mission</h2>
+			<p>Our mission is to provide a seamless and hassle-free bus ticketing experience, making it easier for people to travel across India.</p>
+		</div>
+		<br><br>
+		<div class="about-section">
+			<h2>Our Values</h2>
+			<ul>
+				<li>Customer-centricity</li>
+				<li>Innovation</li>
+				<li>Integrity</li>
+				<li>Teamwork</li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+</html>
+{% include 'myapp/footer.html' %}
+{% endblock %}

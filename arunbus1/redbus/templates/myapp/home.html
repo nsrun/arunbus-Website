@@ -1,0 +1,103 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+<head>
+    <style>
+        /* Marquee replacement with CSS animation */
+        .marquee-text {
+            font-size: 29px;
+            color: white;
+            background: #007bff;
+            padding: 15px;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+
+        /* Animate the text for a marquee effect */
+        .marquee-text span {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll-left 10s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Styles for the container and about sections */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .about-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        .about-section h2 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        .about-section p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .about-section ul {
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .about-section li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="https://st.redbus.in/Images/India/ContextualLogin/generic_banner_Ind.png" style="width: 100%; height: auto;">
+    </div>
+
+    <!-- Replaced <marquee> with CSS animation -->
+    <div class="marquee-text">
+        <span>100% Comfortable of travelling and Enjoy your journey</span>
+    </div>
+
+    <div class="container">
+        <section class="about-section">
+            <h2>Our Lifetime Access</h2>
+            <p>Explore your travel and lifetime supported</p>
+        </section>
+        <section class="about-section">
+            <h2>Our Story</h2>
+            <p>redBus is India's largest online bus ticketing platform, revolutionizing the way people travel by bus. Founded in 2025, we've been making bus travel easy, convenient, and accessible to millions of Indians.</p>
+        </section>
+        <section class="about-section">
+            <h2>Our Mission</h2>
+            <p>Our mission is to provide a seamless and hassle-free bus ticketing experience, making it easier for people to travel across India.</p>
+        </section>
+        <section class="about-section">
+            <h2>Our Values</h2>
+            <ul>
+                <li>Customer-centricity</li>
+                <li>Innovation</li>
+                <li>Integrity</li>
+                <li>Teamwork</li>
+            </ul>
+        </section>
+    </div>
+</body>
+{% include 'myapp/footer.html' %}
+{% endblock %}
