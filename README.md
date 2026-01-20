@@ -1,6 +1,5 @@
-Certainly! Here's a sample README description for your "arunbus-Website" project that uses HTML, CSS, Python, and Django:
 
----
+
 
 # ArunBus Website
 
