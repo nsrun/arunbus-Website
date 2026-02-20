@@ -2,9 +2,6 @@ from django.shortcuts import render,redirect
 from decimal import Decimal
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import User,Bus,Book
-from django.contrib.auth.models import User
-
-
 
 
 # Create your views here.
@@ -31,7 +28,6 @@ def findbus(request):
                            return render(request,'myapp/findbus.html',context)
          else:
                   return render(request,'myapp/findbus.html')
-         
 def bookings(request):
          context={}
          if request.method=='POST':
@@ -39,7 +35,7 @@ def bookings(request):
                   seats_r=int(request.POST.get('no_seats'))
                   bus=Bus.objects.get(id=id_r)
                   if bus:
-                           if bus.rem >int(seats_r):
+                           if bus.rem >= int(seats_r):
                                     name_r=bus.bus_name
                                     cost=int(seats_r)*bus.price
                                     source_r=bus.source
@@ -48,9 +44,10 @@ def bookings(request):
                                     price_r=bus.price
                                     time_r=bus.time
                                     date_r=bus.date
-                                    username_r=request.user.username
-                                    email_r=request.user.email
-                                    userid_r=request.user.id
+                                    # Removed user authentication check for booking
+                                    username_r = 'Guest' # Default to Guest
+                                    email_r = 'guest@example.com' # Default email
+                                    userid_r = 0 # Default user ID
                                     rem_r=bus.rem-seats_r
                                     Bus.objects.filter(id=id_r).update(rem=rem_r)
                                     book=Book.objects.create(name=username_r,email=email_r,
@@ -61,10 +58,12 @@ def bookings(request):
                                     print('book id',book.id)
                                     return render(request,'myapp/bookings.html',locals())
                            else:
-                                    context["errors"]="Sorry select fewer seats"
+                                    context["error"]="Sorry select fewer seats"
                                     return render(request,'myapp/findbus.html',context)
                   else:
                            return render(request,'myapp/findbus.html',context)
+         else:
+                  return render(request,'myapp/findbus.html')
 def cancellings(request):
          context={}
          if request.method=='POST':
@@ -76,19 +75,17 @@ def cancellings(request):
                            Bus.objects.filter(id=book.busid).update(rem=rem_r)
                            Book.objects.filter(id=id_r).update(status='CANCELLED')
                            Book.objects.filter(id=id_r).update(nos=0)
-                           return redirect(seebookings)
+                           return redirect('seebookings')
                   except Book.DoesNotExist:
                            context["error"]="Sorry you have not booked that bus"
                            return render(request,'myapp/error.html',context)
          else:
                   return render(request,'myapp/findbus.html',context)
-def seebookings(request,new={}):
-         context={}
-         id_r=request.user.id
-         book_list=Book.objects.filter(userid=id_r)
-         if book_list:
-                  return render(request,'myapp/booklist.html',locals())
-         else:
-                  context["error"]="Sorry no bus booked"
-                  return render(request,'myapp/findbus.html',context)
+def seebookings(request):
+    book_list = Book.objects.all()
+    if book_list:
+        return render(request, 'myapp/booklist.html', locals())
+    else:
+        context = {"error": "Sorry no bus booked"}
+        return render(request, 'myapp/findbus.html', context)
 
